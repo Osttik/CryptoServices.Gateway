@@ -13,21 +13,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var identityUrl = builder.Configuration.GetValue<string>("IdentityUrl");
-var authenticationProviderKey = "IdentityApiKey";
-
-builder.Services.AddAuthentication()
-    .AddJwtBearer(authenticationProviderKey, x =>
-    {
-        x.Authority = identityUrl;
-        x.RequireHttpsMetadata = false;
-        x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
-        {
-            ValidAudiences = new[] { "orders", "basket", "locations", "marketing", "mobileshoppingagg", "webshoppingagg" }
-        };
-    });
-//...
-
 builder.Services.AddOcelot();
 
 var app = builder.Build();
